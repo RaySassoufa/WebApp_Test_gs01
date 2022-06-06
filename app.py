@@ -21,7 +21,7 @@ df.rename(columns={"Collector/DCU": "DCU", "Meter ID": "Nb Meter"}, inplace=True
 
 st.subheader(f'Installed DCU Status on {df.columns[-1]}')
 
-df_tmp = df.loc[:, ["DCU", "Marker", "Nb Meter"]].astype(str)
+df_tmp = df.loc[:, "DCU":"Nb Meter"].astype(str)
 st.dataframe(df_tmp, width=1000)
 
 #######################################################################
