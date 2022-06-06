@@ -9,7 +9,8 @@ from app import DCU
 ###########################################
 #### ---- Drop DC FollowUP ---- ###########
 ###########################################
-st.subheader("Drop DC Followup")
+st.header("Drop DC Followup")
+st.sidebar.markdown("# Drop DCU FollowUp")
 
 spreadsheet_id = "1aSTIe5g76mqwh6MhrXW_Mqef7vzIPLLwOTeqpqXwaOU"
 sheet_name = "drop_table"
