@@ -75,7 +75,7 @@ bar_chart = px.bar(df_selection,
                    title=f"Selected DCU Status on {df.columns[-1]}")
 
 st.plotly_chart(bar_chart)
-fig_01 = st.dataframe(df_grouped, width=1000)
+fig_01 = st.dataframe(df_grouped, width=2000)
 
 ################## SELECTED DCU PERF #######################
 ############################################################
