@@ -15,11 +15,11 @@ spreadsheet_id = "1aSTIe5g76mqwh6MhrXW_Mqef7vzIPLLwOTeqpqXwaOU"
 sheet_name = "drop_table"
 gsheet_url = "https://docs.google.com/spreadsheets/d/1aSTIe5g76mqwh6MhrXW_Mqef7vzIPLLwOTeqpqXwaOU/edit#gid=0"
 # gsheet_url_for_read_as_csv = f"https://docs.google.com/spreadsheets/d/{spreadsheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-service_account_credential = "credentials.json"
+service_account_credential = "pages/credentials.json"
 
-# df_dc_drop_info = pd.read_excel("drop_dc.xlsx").astype(str)
-# df_dc_drop_info["DCU"] = df_dc_drop_info["DCU"].apply(lambda x: "SAG099000000" + x[0:4])
-# df_dc_drop_info["Identification_Date"] = df_dc_drop_info["Identification_Date"].apply(lambda x: "not defined" if x == 'nan' else parser.parse(x).date())
+df_dc_drop_info = pd.read_excel("pages/drop_dc.xlsx").astype(str)
+df_dc_drop_info["DCU"] = df_dc_drop_info["DCU"].apply(lambda x: "SAG099000000" + x[0:4])
+df_dc_drop_info["Identification_Date"] = df_dc_drop_info["Identification_Date"].apply(lambda x: "not defined" if x == 'nan' else parser.parse(x).date())
 
 btn_import_excel_into_gs_db = 999
 import pygsheets
@@ -41,7 +41,7 @@ def write_to_gsheet(sheet_name, data_df):
 
 ##### !!! Populate df_dc_drop_info dans drop_table du google sheet DB !!!!!!
 if btn_import_excel_into_gs_db == 0:
-    # NB_ROWS = write_to_gsheet(sheet_name, df_dc_drop_info)
+    NB_ROWS = write_to_gsheet(sheet_name, df_dc_drop_info)
     st.markdown("The drop_dc is populated in DB/drop_table")
 else:
     st.markdown("Existing drop_table in the Data Base")
