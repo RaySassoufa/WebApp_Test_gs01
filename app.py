@@ -20,7 +20,9 @@ del df["Unnamed: 0"]
 df.rename(columns={"Collector/DCU": "DCU", "Meter ID": "Nb Meter"}, inplace=True)
 
 st.subheader(f'Installed DCU Status on {df.columns[-1]}')
-st.dataframe(df.iloc[:, :-1].astype(str), width=1000)
+
+df_tmp = df.loc[:, ["DCU", "Marker", "Nb Meter"]].astype(str)
+st.dataframe(df_tmp, width=1000)
 
 #######################################################################
 ######### OFFICIAL PERF CALCULATION TABLE #############################
@@ -37,8 +39,8 @@ st.dataframe(df_rw_ww_t, width=2000)
 ######### KPI RW/WW CHART #############################################
 #######################################################################
 df_fig = df_rw_ww_t.reset_index().rename(columns={"Unnamed: 0": "Date"})
-df_fig["Date"] = df_fig["Date"].astype(str).apply(lambda x: parser.parse(x).date()).apply(lambda x: x.strftime("%d %b"))
-df_fig["Performance"] = df_fig["Performance"].astype(str).apply(lambda x: x[:-1]).astype(float)
+df_fig["Date"] = df_fig["Date"].df_tmp(str).apply(lambda x: parser.parse(x).date()).apply(lambda x: x.strftime("%d %b"))
+df_fig["Performance"] = df_fig["Performance"].df_tmp(str).apply(lambda x: x[:-1]).df_tmp(float)
 
 fig = px.line(df_fig, x="Date", y="Performance", title='KPI', markers=True, text="Performance")
 fig.update_xaxes(visible=True, fixedrange=False)
