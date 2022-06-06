@@ -14,12 +14,12 @@ st.header('Performance Overview Version beta - gdb')
 excel_file = 'plc_to_st.xlsx'
 sheet_name = 'Sheet1'
 
-df = pd.read_excel(excel_file, sheet_name=sheet_name)
+df = pd.read_excel(excel_file, sheet_name=sheet_name, engine="openpyxl", parse_dates=False, dtype=str)
 del df["Unnamed: 0"]
 df.rename(columns={"Collector/DCU": "DCU", "Meter ID": "Nb Meter"}, inplace=True)
 
 st.subheader(f'Installed DCU Status on {df.columns[-1]}')
-st.dataframe(df.iloc[:, :-1].astype(str), width=2000)
+st.dataframe(df.iloc[:, :-1], width=1000)
 
 #######################################################################
 ######### OFFICIAL PERF CALCULATION TABLE #############################
