@@ -59,7 +59,7 @@ DCU = df['DCU'].unique().tolist()
 dc_selection = st.multiselect('Select a DCU:', DCU)
 mask = df["DCU"].isin(dc_selection)
 number_of_result = df[mask].shape[0]
-st.markdown(f'*Available Results: {number_of_result}*')
+# st.markdown(f'*Available Results: {number_of_result}*')
 
 # --- GROUP DATAFRAME AFTER SELECTION
 df_grouped = df[mask].groupby("DCU").agg("sum")
@@ -75,7 +75,7 @@ bar_chart = px.bar(df_selection,
                    title=f"Selected DCU Status on {df.columns[-1]}")
 
 st.plotly_chart(bar_chart)
-fig_01 = st.dataframe(df_grouped)
+fig_01 = st.dataframe(df_grouped, width=1000)
 
 ################## SELECTED DCU PERF #######################
 ############################################################
