@@ -29,7 +29,7 @@ df_rw_ww_t.set_index("Unnamed: 0", inplace=True)
 del df_rw_ww_t["Total Collectable"]
 
 st.subheader('Official Performance Calculation')
-st.dataframe(df_rw_ww_t, width=1000)
+st.dataframe(df_rw_ww_t, width=2000)
 # st.line_chart(df_rw_ww_t["Performance"])
 
 #######################################################################
