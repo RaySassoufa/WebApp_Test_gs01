@@ -19,7 +19,7 @@ del df["Unnamed: 0"]
 df.rename(columns={"Collector/DCU": "DCU", "Meter ID": "Nb Meter"}, inplace=True)
 
 st.subheader(f'Installed DCU Status on {df.columns[-1]}')
-st.write(df.iloc[:, :-1].astype(str))
+st.dataframe(df.iloc[:, :-1])
 
 #######################################################################
 ######### OFFICIAL PERF CALCULATION TABLE #############################
