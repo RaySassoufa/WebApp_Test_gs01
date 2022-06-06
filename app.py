@@ -39,8 +39,8 @@ st.dataframe(df_rw_ww_t, width=2000)
 ######### KPI RW/WW CHART #############################################
 #######################################################################
 df_fig = df_rw_ww_t.reset_index().rename(columns={"Unnamed: 0": "Date"})
-df_fig["Date"] = df_fig["Date"].df_tmp(str).apply(lambda x: parser.parse(x).date()).apply(lambda x: x.strftime("%d %b"))
-df_fig["Performance"] = df_fig["Performance"].df_tmp(str).apply(lambda x: x[:-1]).df_tmp(float)
+df_fig["Date"] = df_fig["Date"].astype(str).apply(lambda x: parser.parse(x).date()).apply(lambda x: x.strftime("%d %b"))
+df_fig["Performance"] = df_fig["Performance"].astype(str).apply(lambda x: x[:-1]).astype(float)
 
 fig = px.line(df_fig, x="Date", y="Performance", title='KPI', markers=True, text="Performance")
 fig.update_xaxes(visible=True, fixedrange=False)
