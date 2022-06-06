@@ -14,7 +14,7 @@ st.header('Performance Overview Version beta - gdb')
 excel_file = 'plc_to_st.xlsx'
 sheet_name = 'Sheet1'
 
-df = pd.read_excel(excel_file, sheet_name=sheet_name, dtype=str)
+df = pd.read_excel(excel_file, sheet_name=sheet_name)
 del df["Unnamed: 0"]
 df.rename(columns={"Collector/DCU": "DCU", "Meter ID": "Nb Meter"}, inplace=True)
 
