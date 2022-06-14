@@ -5,7 +5,7 @@ import plotly.express as px
 from datetime import date, datetime
 from dateutil import parser
 
-st.set_page_config(page_title='Dashboard Version beta', layout="wide", )
+st.set_page_config(page_title='Dashboard Version beta', layout="wide")
 st.header('Performance Overview Version beta - gdb')
 st.sidebar.markdown("# Global Overview")
 

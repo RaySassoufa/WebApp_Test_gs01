@@ -2,6 +2,9 @@ import pandas as pd
 import streamlit as st
 
 from dateutil import parser
+from pathlib import Path
+
+from google.oauth2 import service_account
 
 from app import DCU
 
@@ -16,7 +19,10 @@ spreadsheet_id = "1aSTIe5g76mqwh6MhrXW_Mqef7vzIPLLwOTeqpqXwaOU"
 sheet_name = "drop_table"
 gsheet_url = "https://docs.google.com/spreadsheets/d/1aSTIe5g76mqwh6MhrXW_Mqef7vzIPLLwOTeqpqXwaOU/edit#gid=0"
 # gsheet_url_for_read_as_csv = f"https://docs.google.com/spreadsheets/d/{spreadsheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-service_account_credential = "pages/credentials.json"
+service_account_credential = st.secrets["gcp_service_account"]  # return a dict
+
+credentials = service_account.Credentials.from_service_account_info(
+    service_account_credential, scopes=["https://www.googleapis.com/auth/spreadsheets"])
 
 df_dc_drop_info = pd.read_excel("pages/drop_dc.xlsx").astype(str)
 df_dc_drop_info["DCU"] = df_dc_drop_info["DCU"].apply(lambda x: "SAG099000000" + x[0:4])
@@ -24,7 +30,7 @@ df_dc_drop_info["Identification_Date"] = df_dc_drop_info["Identification_Date"].
 
 btn_import_excel_into_gs_db = 999
 import pygsheets
-gc_pygsheets = pygsheets.authorize(service_file=service_account_credential)
+gc_pygsheets = pygsheets.authorize(custom_credentials=credentials)
 sh_pygsheets = gc_pygsheets.open_by_key(spreadsheet_id)
 
 def write_to_gsheet(sheet_name, data_df):
@@ -55,7 +61,7 @@ else:
 import gspread as gs
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
-gc = gs.service_account(filename=service_account_credential)
+gc = gs.service_account_from_dict(service_account_credential)
 sh = gc.open_by_url(gsheet_url)
 ws = sh.worksheet(sheet_name)
 
@@ -63,6 +69,7 @@ st.markdown("drop_table")
 
 fig_02 = st.empty()
 
+# @st.cache(ttl=600)
 def vue_drop_table():
     df_drop_table = get_as_dataframe(ws)
     fig_02.dataframe(df_drop_table.astype(str))
